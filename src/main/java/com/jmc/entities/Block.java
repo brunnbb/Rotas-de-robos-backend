@@ -8,25 +8,37 @@ import java.util.Map;
 
 public class Block {
     private final int id; //ID
+    private int x;
+    private int y;
     private final Map<Face, Boolean> directions; //FACE, BOOLEAN
     private Robot robot; //SE ESTIVER NULL NÃO TEM 1 ROBO AQUI
 
-    private Block(int id, boolean north, boolean west, boolean south, boolean east) {
+    private Block(int id, int x, int y, boolean[] connections) {
         this.id = id;
+        this.x = x;
+        this.y = y;
         this.directions = new HashMap<>();
         this.robot = null;
-        this.directions.put(Face.NORTH, north);
-        this.directions.put(Face.WEST, west);
-        this.directions.put(Face.SOUTH, south);
-        this.directions.put(Face.EAST, east);
+        this.directions.put(Face.NORTH, connections[0]);
+        this.directions.put(Face.WEST, connections[1]);
+        this.directions.put(Face.SOUTH, connections[2]);
+        this.directions.put(Face.EAST, connections[3]);
     }
 
-    public static Block createBlock(int id, boolean[] connections) {
-        return new Block(id, connections[0], connections[1], connections[2], connections[3]);
+    public static Block createBlock(int id, int x, int y, boolean[] connections) {
+        return new Block(id, x, y, connections);
     }
 
     public int getId() {
         return id;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 
     public Map<Face, Boolean> getDirections() {
@@ -44,10 +56,11 @@ public class Block {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Block [id=").append(id).append(", directions=").append(directions).append("]");
+        sb.append("Block [id=").append(id).append(", coord=(").append(x).append(",").append(y).append(")").append(", directions=").append(directions);
         if (robot != null) {
             sb.append(", robot=").append(robot);
         }
+        sb.append("]");
         return sb.toString();
     }
 }

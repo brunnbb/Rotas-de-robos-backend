@@ -1,17 +1,20 @@
 package com.jmc;
 
-import com.jmc.algorithms.*;
 import com.jmc.entities.*;
-import com.jmc.enums.*;
+import com.jmc.searches.algorithms.BFS;
 
 public class Tester {
     public static void main(String[] args) {
-        Block[][] grid = Grid.createGrid();
-        for (int x = 0; x < 13; x++) {
-            for (int y = 0; y < 15; y++) {
-                System.out.print(grid[x][y] + "\t");
-            }
-            System.out.println(" ");
-        }
+        Grid grid = new Grid();
+        grid.createGrid();
+        Block[][] warehouseGrid = grid.getGrid();
+//        for (int x = 0; x < 13; x++) {
+//            for (int y = 0; y < 15; y++) {
+//                System.out.print(warehouseGrid[x][y] + "\t");
+//            }
+//            System.out.println(" ");
+//        }
+        BFS bfs = new BFS(warehouseGrid);
+        System.out.println(bfs.bfs(8,3));
     }
 }

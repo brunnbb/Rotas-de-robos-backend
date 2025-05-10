@@ -1,9 +1,17 @@
 package com.jmc.entities;
 
 public class Grid {
+    private final Block[][] grid;
 
-    public static Block[][] createGrid() {
-        Block[][] grid = new Block[13][15];
+    public Grid() {
+        this.grid = new Block[13][15];
+    }
+
+    public Block[][] getGrid() {
+        return grid;
+    }
+
+    public void createGrid() {
         // north, west, south, east
         boolean[] openEast = {false, false, false, true};
         boolean[] openWestSouthEast = {false, true, true, true};
@@ -17,13 +25,13 @@ public class Grid {
 
         for (int i = 0; i < 15; i++) {
             if (i == 0) {
-                grid[0][i] = Block.createBlock(0, openEast);
+                this.grid[0][i] = Block.createBlock(0, 0, i, openEast);
             } else if (i == 1 || i == 4 || i == 7 || i == 10 || i == 13) {
-                grid[0][i] = Block.createBlock(0, openWestSouthEast);
+                this.grid[0][i] = Block.createBlock(0, 0, i, openWestSouthEast);
             } else if (i == 2 || i == 3 || i == 5 || i == 6 || i == 8 || i == 9 || i == 11 || i == 12) {
-                grid[0][i] = Block.createBlock(0, openWestEast);
+                this.grid[0][i] = Block.createBlock(0, 0, i, openWestEast);
             } else {
-                grid[0][14] = Block.createBlock(0, openWest);
+                this.grid[0][i] = Block.createBlock(0, 0, i, openWest);
             }
         }
 
@@ -31,12 +39,12 @@ public class Grid {
             int shelfId = i;
             for (int j = 0; j < 15; j++) {
                 if (j == 1 || j == 4 || j == 7 || j == 10 || j == 13) {
-                    grid[i][j] = Block.createBlock(0, openAllDirections);
+                    this.grid[i][j] = Block.createBlock(0, i, j, openAllDirections);
                 } else if (j == 0 || j == 3 || j == 6 || j == 9 || j == 12) {
-                    grid[i][j] = Block.createBlock(shelfId, openEast);
+                    this.grid[i][j] = Block.createBlock(shelfId, i, j, openEast);
                     shelfId += 10;
                 } else {
-                    grid[i][j] = Block.createBlock(shelfId, openWest);
+                    this.grid[i][j] = Block.createBlock(shelfId, i, j, openWest);
                     shelfId += 10;
                 }
             }
@@ -44,28 +52,27 @@ public class Grid {
 
         for (int i = 0; i < 15; i++) {
             if (i == 0) {
-                grid[11][i] = Block.createBlock(0, openSouthEast);
+                this.grid[11][i] = Block.createBlock(0, 11, i, openSouthEast);
             } else if (i == 1 || i == 4 || i == 7 || i == 10 || i == 13) {
-                grid[11][i] = Block.createBlock(0, openAllDirections);
+                this.grid[11][i] = Block.createBlock(0, 11, i, openAllDirections);
             } else if (i == 2 || i == 3) {
-                grid[11][i] = Block.createBlock(0, openWestSouthEast);
+                this.grid[11][i] = Block.createBlock(0, 11, i, openWestSouthEast);
             } else if (i == 5 || i == 6 || i == 8 || i == 9 || i == 11 || i == 12) {
-                grid[11][i] = Block.createBlock(0, openWestSouthEast);
+                this.grid[11][i] = Block.createBlock(0, 11, i, openWestSouthEast);
             } else {
-                grid[11][i] = Block.createBlock(101, openWestSouth);
+                this.grid[11][i] = Block.createBlock(101, 11, i, openWestSouth);
             }
         }
 
         for (int i = 0; i < 15; i++) {
             if (i < 5) {
-                grid[12][i] = Block.createBlock(0, openNorth);
-                grid[12][i].setRobot(new Robot(i+1));
+                this.grid[12][i] = Block.createBlock(0, 12, i, openNorth);
+                this.grid[12][i].setRobot(new Robot(i + 1));
             } else {
-                grid[12][i] = Block.createBlock(-1, openNorthWestEast);
+                this.grid[12][i] = Block.createBlock(-1, 12, i, openNorthWestEast);
             }
         }
 
-        return grid;
     }
 
 }
