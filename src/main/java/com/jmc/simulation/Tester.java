@@ -6,7 +6,7 @@ import com.jmc.searches.algorithms.*;
 public class Tester {
     public static void main(String[] args) {
         Grid grid = new Grid();
-        grid.createGrid();
+        //grid.createGrid();
         Block[][] warehouseGrid = grid.getGrid();
 //
 //        for (int x = 0; x < 13; x++) {

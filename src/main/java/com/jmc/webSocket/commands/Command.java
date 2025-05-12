@@ -14,4 +14,11 @@ public abstract class Command {
     }
 
     public abstract void run(String[] args, Session session);
+
+    @Override
+    public String toString() {
+        return "Command{" +
+                "command='" + command + '\'' +
+                '}';
+    }
 }
