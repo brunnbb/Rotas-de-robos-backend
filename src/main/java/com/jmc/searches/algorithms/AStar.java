@@ -8,7 +8,18 @@ import com.jmc.searches.Search;
 import java.util.*;
 
 public class AStar extends Search {
+    // Lista dos objetivos
     private final List<Block> goals;
+    // Set para marcar os nós já visitados/vistos pelos algoritmos (serve para evitar loops)
+    private Set<Block> visited;
+    // Lista que marca os blocos que já foram removidos da fila para análise
+    private List<Block> explored;
+    // Map que mapeia como um bloco foi alcançado (Serve para reconstruir o caminho final <Bloco, PaiDoBloco>)
+    private Map<Block, Block> parentMap;
+    // Map que mapeia o custo real de até cada bloco
+    private Map<Block, Integer> gScore;
+    // Fila de fronteira que tem como prioridade o menor f(n)
+    private PriorityQueue<Block> openSet;
 
     public AStar(Block[][] warehouseGrid) {
         super(warehouseGrid);
@@ -26,23 +37,29 @@ public class AStar extends Search {
     }
 
     @Override
-    public AlgorithmResult search(int shelfI, int shelfJ) {
-        Block start = warehouseGrid[shelfI][shelfJ];
-        // Custo real até cada bloco
-        Map<Block, Integer> gScore = new HashMap<>();
-        gScore.put(start, 0);
-
+    public void startDataStructures() {
+        this.visited = new HashSet<>();
+        this.explored = new ArrayList<>();
+        this.parentMap = new HashMap<>();
+        this.gScore = new HashMap<>();
         // Fila de prioridade baseada em f(n) = g(n) + h(n)
-        PriorityQueue<Block> openSet = new PriorityQueue<>(
+        this.openSet = new PriorityQueue<>(
                 Comparator.comparingInt(b -> gScore.getOrDefault(b, Integer.MAX_VALUE) + heuristic(b))
         );
+    }
 
+    @Override
+    public AlgorithmResult search(int shelfI, int shelfJ) {
+        Block start = warehouseGrid[shelfI][shelfJ];
+        startDataStructures();
+        gScore.put(start, 0);
         openSet.add(start);
         visited.add(start);
         parentMap.put(start, null);
 
         while (!openSet.isEmpty()) {
-            Block current = openSet.poll(); // bloco com menor f(n)
+            // bloco com menor f(n)
+            Block current = openSet.poll();
             explored.add(current);
 
             // Encontrou um robô (objetivo)
@@ -54,7 +71,7 @@ public class AStar extends Search {
                 if (!entry.getValue()) continue;
 
                 Face face = entry.getKey();
-                Block neighbor = getNeighbor(warehouseGrid, current, face);
+                Block neighbor = getNeighbor(current, face);
                 if (neighbor == null) continue;
 
                 int tentativeG = gScore.get(current) + 1;

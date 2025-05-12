@@ -8,6 +8,7 @@ public class Tester {
         Grid grid = new Grid();
         grid.createGrid();
         Block[][] warehouseGrid = grid.getGrid();
+//
 //        for (int x = 0; x < 13; x++) {
 //            for (int y = 0; y < 15; y++) {
 //                System.out.print(warehouseGrid[x][y] + "\t");

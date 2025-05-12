@@ -2,7 +2,6 @@ package com.jmc.entities;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 public class AlgorithmResult {
@@ -67,6 +66,7 @@ public class AlgorithmResult {
         }
         return cardinalDirections;
     }
+
 
     @Override
     public String toString() {

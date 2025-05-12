@@ -9,28 +9,19 @@ import java.util.*;
 public abstract class Search {
     // Grid que serve de mapa para o armazém
     protected Block[][] warehouseGrid;
-    // Fila/Pilha que será manipulada pelos algoritmos
-    protected Deque<Block> dequeue;
-    // Lista que marca os nós explorados (aqueles que foram removidos da fila/pilha para análise)
-    protected List<Block> explored;
-    // Set para marcar os nós já visitados/vistos pelos algoritmos (serve para evitar loops)
-    protected Set<Block> visited;
-    // Map que mapeia como um bloco foi alcançado (Serve para reconstruir o caminho final <Bloco, PaiDoBloco>)
-    protected Map<Block, Block> parentMap;
 
     protected Search(Block[][] warehouseGrid) {
         this.warehouseGrid = warehouseGrid;
-        this.dequeue = new LinkedList<>();
-        this.explored = new ArrayList<>();
-        this.visited = new HashSet<>();
-        this.parentMap = new HashMap<>();
     }
 
     // Metodo abstrado para busca
     public abstract AlgorithmResult search(int shelfI, int shelfJ);
 
+    // Metodo abstrato para inicilizar as estruturas de dado
+    public abstract void startDataStructures();
+
     // Pega o bloco vizinho baseado na coordenado cardial dada
-    protected Block getNeighbor(Block[][] warehouseGrid, Block current, Face face) {
+    protected Block getNeighbor(Block current, Face face) {
         int i = current.getI();
         int j = current.getJ();
 
