@@ -14,12 +14,24 @@ public class Tester {
 //            }
 //            System.out.println(" ");
 //        }
+
+        System.out.println("BFS:");
         BFS bfs = new BFS(warehouseGrid);
-        System.out.println(bfs.search(7, 6));
+        AlgorithmResult result1 = bfs.search(7, 6);
+        System.out.println(result1);
 
         System.out.println("\n");
 
+        System.out.println("A*:");
+        AStar astar = new AStar(warehouseGrid);
+        AlgorithmResult result2 = astar.search(7, 6);
+        System.out.println(result2);
+
+        System.out.println("\n");
+
+        System.out.println("DFS:");
         DFS dfs = new DFS(warehouseGrid);
-        System.out.println(dfs.search(7,6));
+        AlgorithmResult result3 = dfs.search(7, 6);
+        System.out.println(result3);
     }
 }

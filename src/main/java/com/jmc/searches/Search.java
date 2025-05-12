@@ -10,7 +10,7 @@ public abstract class Search {
     // Grid que serve de mapa para o armazém
     protected Block[][] warehouseGrid;
     // Fila/Pilha que será manipulada pelos algoritmos
-    protected Deque<Block> queue;
+    protected Deque<Block> dequeue;
     // Lista que marca os nós explorados (aqueles que foram removidos da fila/pilha para análise)
     protected List<Block> explored;
     // Set para marcar os nós já visitados/vistos pelos algoritmos (serve para evitar loops)
@@ -20,30 +20,32 @@ public abstract class Search {
 
     protected Search(Block[][] warehouseGrid) {
         this.warehouseGrid = warehouseGrid;
-        this.queue = new LinkedList<>();
+        this.dequeue = new LinkedList<>();
         this.explored = new ArrayList<>();
         this.visited = new HashSet<>();
         this.parentMap = new HashMap<>();
     }
 
+    // Metodo abstrado para busca
     public abstract AlgorithmResult search(int shelfI, int shelfJ);
 
+    // Pega o bloco vizinho baseado na coordenado cardial dada
     protected Block getNeighbor(Block[][] warehouseGrid, Block current, Face face) {
-        int x = current.getI();
-        int y = current.getJ();
+        int i = current.getI();
+        int j = current.getJ();
 
         switch (face) {
             case NORTH -> {
-                if (x > 0) return warehouseGrid[x - 1][y];
+                if (i > 0) return warehouseGrid[i - 1][j];
             }
             case SOUTH -> {
-                if (x < 12) return warehouseGrid[x + 1][y];
+                if (i < 12) return warehouseGrid[i + 1][j];
             }
             case EAST -> {
-                if (y < 15) return warehouseGrid[x][y + 1];
+                if (j < 15) return warehouseGrid[i][j + 1];
             }
             case WEST -> {
-                if (y > 0) return warehouseGrid[x][y - 1];
+                if (j > 0) return warehouseGrid[i][j - 1];
             }
         }
         return null;

@@ -52,6 +52,6 @@ public class Robot {
 
     @Override
     public String toString() {
-        return "R" + id ;
+        return "R" + id;
     }
 }
