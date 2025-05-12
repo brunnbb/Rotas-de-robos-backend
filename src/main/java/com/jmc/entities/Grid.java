@@ -22,16 +22,17 @@ public class Grid {
         boolean[] openSouthEast = {false, false, true, true};
         boolean[] openNorth = {true, false, false, false};
         boolean[] openAllDirections = {true, true, true, true};
+        boolean[] closed = {false, false, false, false};
 
-        for (int i = 0; i < 15; i++) {
-            if (i == 0) {
-                this.grid[0][i] = Block.createBlock(0, 0, i, openEast);
-            } else if (i == 1 || i == 4 || i == 7 || i == 10 || i == 13) {
-                this.grid[0][i] = Block.createBlock(0, 0, i, openWestSouthEast);
-            } else if (i == 2 || i == 3 || i == 5 || i == 6 || i == 8 || i == 9 || i == 11 || i == 12) {
-                this.grid[0][i] = Block.createBlock(0, 0, i, openWestEast);
+        for (int j = 0; j < 15; j++) {
+            if (j == 0) {
+                this.grid[0][j] = Block.createBlock(0, 0, j, openEast);
+            } else if (j == 1 || j == 4 || j == 7 || j == 10 || j == 13) {
+                this.grid[0][j] = Block.createBlock(0, 0, j, openWestSouthEast);
+            } else if (j == 2 || j == 3 || j == 5 || j == 6 || j == 8 || j == 9 || j == 11 ||  j== 12) {
+                this.grid[0][j] = Block.createBlock(0, 0, j, openWestEast);
             } else {
-                this.grid[0][i] = Block.createBlock(0, 0, i, openWest);
+                this.grid[0][j] = Block.createBlock(0, 0, j, openWest);
             }
         }
 
@@ -50,26 +51,28 @@ public class Grid {
             }
         }
 
-        for (int i = 0; i < 15; i++) {
-            if (i == 0) {
-                this.grid[11][i] = Block.createBlock(0, 11, i, openSouthEast);
-            } else if (i == 1 || i == 4 || i == 7 || i == 10 || i == 13) {
-                this.grid[11][i] = Block.createBlock(0, 11, i, openAllDirections);
-            } else if (i == 2 || i == 3) {
-                this.grid[11][i] = Block.createBlock(0, 11, i, openWestSouthEast);
-            } else if (i == 5 || i == 6 || i == 8 || i == 9 || i == 11 || i == 12) {
-                this.grid[11][i] = Block.createBlock(0, 11, i, openWestSouthEast);
+        for (int j = 0; j < 15; j++) {
+            if (j == 0) {
+                this.grid[11][j] = Block.createBlock(0, 11, j, openSouthEast);
+            } else if (j == 1 || j == 4 ) {
+                this.grid[11][j] = Block.createBlock(0, 11, j, openAllDirections);
+            } else if (j == 2 || j == 3) {
+                this.grid[11][j] = Block.createBlock(0, 11, j, openWestSouthEast);
+            } else if (j == 5 || j == 6 || j == 8 || j == 9 || j == 11 || j == 12) {
+                this.grid[11][j] = Block.createBlock(0, 11, j, openWestEast);
+            } else if (j == 7 || j == 10 || j == 13) {
+                this.grid[11][j] = Block.createBlock(0, 11, j, openNorthWestEast);
             } else {
-                this.grid[11][i] = Block.createBlock(101, 11, i, openWestSouth);
+                this.grid[11][j] = Block.createBlock(101, 11, j, openWest);
             }
         }
 
-        for (int i = 0; i < 15; i++) {
-            if (i < 5) {
-                this.grid[12][i] = Block.createBlock(0, 12, i, openNorth);
-                this.grid[12][i].setRobot(new Robot(i + 1));
+        for (int j = 0; j < 15; j++) {
+            if (j < 5) {
+                this.grid[12][j] = Block.createBlock(0, 12, j, openNorth);
+                this.grid[12][j].setRobot(new Robot(j + 1));
             } else {
-                this.grid[12][i] = Block.createBlock(-1, 12, i, openNorthWestEast);
+                this.grid[12][j] = Block.createBlock(-1, 12, j, closed);
             }
         }
 

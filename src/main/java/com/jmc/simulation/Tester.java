@@ -1,7 +1,7 @@
-package com.jmc;
+package com.jmc.simulation;
 
 import com.jmc.entities.*;
-import com.jmc.searches.algorithms.BFS;
+import com.jmc.searches.algorithms.*;
 
 public class Tester {
     public static void main(String[] args) {
@@ -15,6 +15,11 @@ public class Tester {
 //            System.out.println(" ");
 //        }
         BFS bfs = new BFS(warehouseGrid);
-        System.out.println(bfs.bfs(8,3));
+        System.out.println(bfs.search(7, 6));
+
+        System.out.println("\n");
+
+        DFS dfs = new DFS(warehouseGrid);
+        System.out.println(dfs.search(7,6));
     }
 }

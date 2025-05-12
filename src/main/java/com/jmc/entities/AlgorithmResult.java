@@ -3,19 +3,18 @@ package com.jmc.entities;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 public class AlgorithmResult {
     // Caminho final da prateleira ao robô mais próximo
     private List<Block> finalPath;
-    // Lista completa de todos os nodos expandidos durante a busca
-    private Set<Block> completePath;
+    // Lista completa de todos os nós explorados durante a busca
+    private List<Block> exploredPath;
     // Caminho do robo até prateleira
     private List<Block> robotPath;
 
-    public AlgorithmResult(List<Block> finalPath, Set<Block> completePath) {
+    public AlgorithmResult(List<Block> finalPath, List<Block> exploredPath) {
         this.finalPath = finalPath != null ? finalPath : Collections.emptyList();
-        this.completePath = completePath != null ? completePath : Collections.emptySet();
+        this.exploredPath = exploredPath != null ? exploredPath : Collections.emptyList();
         this.robotPath = new ArrayList<>(this.finalPath);
         Collections.reverse(this.robotPath);
     }
@@ -24,8 +23,8 @@ public class AlgorithmResult {
         return finalPath;
     }
 
-    public Set<Block> getCompletePath() {
-        return completePath;
+    public List<Block> getExploredPath() {
+        return exploredPath;
     }
 
     public List<Block> getRobotPath() {
@@ -37,6 +36,14 @@ public class AlgorithmResult {
         sb.append("AlgorithmResult\n");
         sb.append(" Final Path:\n");
         for (Block b : finalPath) {
+            sb.append("\t").append(b.toString()).append("\n");
+        }
+        sb.append(" Robot Path:\n");
+        for (Block b : robotPath) {
+            sb.append("\t").append(b.toString()).append("\n");
+        }
+        sb.append(" Explored List:\n");
+        for (Block b : exploredPath) {
             sb.append("\t").append(b.toString()).append("\n");
         }
         return sb.toString();

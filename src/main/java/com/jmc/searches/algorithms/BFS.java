@@ -9,26 +9,24 @@ import com.jmc.searches.Search;
 import java.util.*;
 
 public class BFS extends Search {
-    private Block[][] warehouseGrid;
 
     public BFS(Block[][] warehouseGrid) {
-        this.warehouseGrid = warehouseGrid;
-        this.queue = new LinkedList<Block>();
-        this.visited = new HashSet<Block>();
-        this.parentMap = new HashMap<Block, Block>();
+        super(warehouseGrid);
     }
 
-    public AlgorithmResult bfs(int inicialX, int inicialY) {
-        Block start = warehouseGrid[inicialX][inicialY];
+    @Override
+    public AlgorithmResult search(int shelfI, int shelfJ) {
+        Block start = warehouseGrid[shelfI][shelfJ];
         queue.add(start);
         visited.add(start);
         parentMap.put(start, null);
 
         while (!queue.isEmpty()) {
             Block current = queue.poll();
+            explored.add(current);
 
             if (current.getRobot() != null) {
-                return new AlgorithmResult(reconstructFinalPath(parentMap, current), visited);
+                return new AlgorithmResult(reconstructFinalPath(parentMap, current), explored);
             }
 
             for (Map.Entry<Face, Boolean> entry : current.getDirections().entrySet()) {
@@ -46,6 +44,6 @@ public class BFS extends Search {
                 }
             }
         }
-        return new AlgorithmResult(null, visited);
+        return new AlgorithmResult(null, explored);
     }
 }
