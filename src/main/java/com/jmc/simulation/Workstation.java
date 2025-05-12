@@ -9,7 +9,7 @@ import com.jmc.searches.algorithms.BFS;
 public class Workstation {
     public static void main(String[] args) {
         Grid grid = new Grid();
-        grid.createGrid();
+        //grid.createGrid();
 
         Block[][] warehouseGrid = grid.getGrid();
         BFS bfs = new BFS(warehouseGrid);

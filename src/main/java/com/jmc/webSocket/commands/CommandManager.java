@@ -20,13 +20,19 @@ public class CommandManager {
     }
 
     public void commandHandler(String message, Session session) {
+        System.out.println("fui chamado!");
+        System.out.println(message);
         String[] args = message.split(" ");
         if (args.length == 0) return;
 
         if (commands.containsKey(args[0])) {
+            System.out.println("comando achado!");
             Command command = this.commands.get(args[0]);
 
+            System.out.println(command.toString());
             command.run(args, session);
+        } else {
+            System.out.println("bah");
         }
     }
 }

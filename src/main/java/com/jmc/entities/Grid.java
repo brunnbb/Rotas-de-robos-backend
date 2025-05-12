@@ -5,13 +5,25 @@ public class Grid {
 
     public Grid() {
         this.grid = new Block[13][15];
+        this.createGrid();
     }
 
-    public Block[][] getGrid() {
-        return grid;
+    public Coordinate getShelfCoordinate(int shelfID) {
+        for (int i = 0; i < 13; i++) {
+            for (int j = 0; j < 15; j++) {
+                if (grid[i][j] != null) {
+                    Block block = grid[i][j];
+                    if (block.getId() == shelfID) {
+                        return new Coordinate(j, i);
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 
-    public void createGrid() {
+    private void createGrid() {
         // north, west, south, east
         boolean[] openEast = {false, false, false, true};
         boolean[] openWestSouthEast = {false, true, true, true};
@@ -78,4 +90,7 @@ public class Grid {
 
     }
 
+    public Block[][] getGrid() {
+        return grid;
+    }
 }
