@@ -61,17 +61,17 @@ public class StartCommand extends Command {
             int robotID = result.getRobot().getId();
             List<Block> exploredPath = new ArrayList<>();
             result.getExploredPath().forEach(block -> {
-                exploredPath.add(new Block(block.getI(), block.getI(), block.getJ()));
+                exploredPath.add(new Block(block.getId(), block.getI(), block.getJ()));
             });
 
             List<Block> robotPath = new ArrayList<>();
             result.getRobotPath().forEach(block -> {
-                robotPath.add(new Block(block.getI(), block.getI(), block.getJ()));
+                robotPath.add(new Block(block.getId(), block.getI(), block.getJ()));
             });
 
             List<Block> unloadingStation  = new ArrayList<>();
             result.getRobot().goToUnloadingStation(grid.getGrid(), shelfBlock).forEach(block -> {
-                unloadingStation.add(new Block(block.getI(), block.getI(), block.getJ()));
+                unloadingStation.add(new Block(block.getId(), block.getI(), block.getJ()));
             });
 
             List<Block> reverseUnloadingStation = new ArrayList<>(unloadingStation).reversed();
