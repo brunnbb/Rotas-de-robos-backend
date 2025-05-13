@@ -35,11 +35,12 @@ public class IterativeDeepening extends Search {
         int depthLimit = 0;
         while (true) {
             startDataStructures();
-
-            depthLimitedSearch(start, depthLimit, visited);
+            depthLimitedSearch(start, depthLimit);
 
             if (foundBlock != null) {
                 Robot robot = foundBlock.getRobot();
+                start.setRobot(robot);
+                foundBlock.setRobot(null);
                 return new AlgorithmResult(reconstructFinalPath(parentMap, foundBlock), explored, robot);
             }
 
@@ -50,7 +51,7 @@ public class IterativeDeepening extends Search {
         }
     }
 
-    private void depthLimitedSearch(Block current, int limit, Set<Block> visited) {
+    private void depthLimitedSearch(Block current, int limit) {
         visited.add(current);
         explored.add(current);
 
@@ -65,16 +66,16 @@ public class IterativeDeepening extends Search {
         }
 
         for (Map.Entry<Face, Boolean> entry : current.getDirections().entrySet()) {
-            if (!entry.getValue()) continue;
+            if (entry.getValue()) {
+                Face face = entry.getKey();
+                Block neighbor = getNeighbor(current, face);
 
-            Block neighbor = getNeighbor(current, entry.getKey());
-            if (neighbor == null || visited.contains(neighbor)) continue;
-
-            parentMap.put(neighbor, current);
-            depthLimitedSearch(neighbor, limit - 1, visited);
-
-            // Se encontrou o robô, para de buscar
-            if (foundBlock != null) return;
+                if (neighbor != null && !visited.contains(neighbor)) {
+                    parentMap.put(neighbor, current);
+                    depthLimitedSearch(neighbor, limit - 1);
+                    if (foundBlock != null) return;
+                }
+            }
         }
     }
 }

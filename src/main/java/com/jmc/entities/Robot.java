@@ -10,7 +10,6 @@ import java.util.Map;
 public class Robot {
     private int id;
     private boolean carrying;
-    // 1-100 valid packages, -1 not carrying
     private int packageId;
     private boolean postGoal;
     private List<Block> pathToUnloadingStation;
@@ -86,20 +85,13 @@ public class Robot {
             pathToUnloadingStation.add(warehouseGrid[i][j + 1]);
             j++;
         }
-
-        warehouseGrid[11][14].setRobot(shelf.getRobot());
-        shelf.setRobot(null);
-
         return pathToUnloadingStation;
     }
 
+    // Deprecated
     public List<Block> returnToShelf(Block[][] warehouseGrid, Block shelf) {
         List<Block> pathToReturnToShelf = new ArrayList<>(this.pathToUnloadingStation);
         Collections.reverse(pathToReturnToShelf);
-
-        shelf.setRobot(warehouseGrid[11][14].getRobot());
-        warehouseGrid[11][14].setRobot(null);
-
         return pathToReturnToShelf;
     }
 
