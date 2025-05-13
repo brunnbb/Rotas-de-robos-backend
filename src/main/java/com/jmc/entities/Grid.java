@@ -19,7 +19,6 @@ public class Grid {
                 }
             }
         }
-
         return null;
     }
 
@@ -87,7 +86,6 @@ public class Grid {
                 this.grid[12][j] = Block.createBlock(-1, 12, j, closed);
             }
         }
-
     }
 
     public Block[][] getGrid() {

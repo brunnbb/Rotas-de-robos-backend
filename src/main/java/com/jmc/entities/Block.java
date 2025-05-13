@@ -2,7 +2,6 @@ package com.jmc.entities;
 
 import com.jmc.enums.Face;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

@@ -24,6 +24,14 @@ public class AStar extends Search {
     public AStar(Block[][] warehouseGrid) {
         super(warehouseGrid);
         this.goals = new ArrayList<>();
+    }
+
+    @Override
+    public void startDataStructures() {
+        this.visited = new HashSet<>();
+        this.explored = new ArrayList<>();
+        this.parentMap = new HashMap<>();
+        this.gScore = new HashMap<>();
 
         // Encontrar todos os blocos que possuem goals (robôs)
         for (int i = 0; i < warehouseGrid.length; i++) {
@@ -34,14 +42,7 @@ public class AStar extends Search {
                 }
             }
         }
-    }
 
-    @Override
-    public void startDataStructures() {
-        this.visited = new HashSet<>();
-        this.explored = new ArrayList<>();
-        this.parentMap = new HashMap<>();
-        this.gScore = new HashMap<>();
         // Fila de prioridade baseada em f(n) = g(n) + h(n)
         this.openSet = new PriorityQueue<>(
                 Comparator.comparingInt(b -> gScore.getOrDefault(b, Integer.MAX_VALUE) + heuristic(b))

@@ -67,7 +67,6 @@ public class AlgorithmResult {
         return cardinalDirections;
     }
 
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
