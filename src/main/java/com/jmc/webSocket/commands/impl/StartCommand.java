@@ -55,30 +55,34 @@ public class StartCommand extends Command {
                 continue;
 
             AlgorithmResult result = algorithmInstance.search(coordinate.i(), coordinate.j());
-            //System.out.println(result);
 
             Block shelfBlock = grid.getShelfBlock(shelf);
-            //System.out.println((shelfBlock != null) ? shelfBlock.toString() : "");
 
-            List<Block> pathUnloading = new ArrayList<>();
+            int robotID = result.getRobot().getId();
+            List<Block> exploredPath = new ArrayList<>();
+            result.getExploredPath().forEach(block -> {
+                exploredPath.add(new Block(block.getI(), block.getI(), block.getJ()));
+            });
+
+            List<Block> robotPath = new ArrayList<>();
+            result.getRobotPath().forEach(block -> {
+                robotPath.add(new Block(block.getI(), block.getI(), block.getJ()));
+            });
+
+            List<Block> unloadingStation  = new ArrayList<>();
             result.getRobot().goToUnloadingStation(grid.getGrid(), shelfBlock).forEach(block -> {
-                pathUnloading.add(new Block(block.getId(), block.getI(), block.getJ()));
+                unloadingStation.add(new Block(block.getI(), block.getI(), block.getJ()));
             });
 
-            /*
-            List<Block> pathReturnShelf = new ArrayList<>();
-            result.getRobot().returnToShelf(grid.getGrid(), shelfBlock).forEach(block -> {
-                pathReturnShelf.add(new Block(block.getId(), block.getI(), block.getJ()));
-            });
-             */
+            List<Block> reverseUnloadingStation = new ArrayList<>(unloadingStation).reversed();
 
             FilteredAlgorithmResult filteredAlgorithmResult = new FilteredAlgorithmResult(
                     shelf,
-                    result.getRobot().getId(),
-                    result.getExploredPath(),
-                    result.getRobotPath(),
-                    pathUnloading,
-                    pathUnloading.reversed()
+                    robotID,
+                    exploredPath,
+                    robotPath,
+                    unloadingStation,
+                    reverseUnloadingStation
             );
 
             resultMap.put(shelf, filteredAlgorithmResult);
@@ -92,5 +96,6 @@ public class StartCommand extends Command {
         } catch (Exception exception) {
             exception.printStackTrace(System.err);
         }
+
     }
 }

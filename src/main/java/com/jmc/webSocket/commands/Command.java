@@ -9,10 +9,6 @@ public abstract class Command {
         this.command = command;
     }
 
-    public String getCommand() {
-        return command;
-    }
-
     public abstract void run(String[] args, Session session);
 
     @Override

@@ -7,6 +7,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Representa o Robô responsável por carregar pacotes, navegar até as prateleiras e estações de descarregamento.
+ * Cada robô possui um identificador.
+ */
 public class Robot {
     private int id;
     private boolean carrying;
@@ -54,10 +58,23 @@ public class Robot {
         this.postGoal = postGoal;
     }
 
+    /**
+     * Move o robô até a prateleira especificada dentro do grid do armazém.
+     *
+     * @param warehouseGrid matriz que representa o armazém.
+     * @param shelf {@link Block} bloco da prateleira para onde o robô deve ir.
+     */
     public void goToShelf(Block[][] warehouseGrid, Block shelf) {
         warehouseGrid[shelf.getI()][shelf.getJ()].setRobot(this);
     }
 
+    /**
+     * Calcula e retorna o caminho do robô até a estação de descarregamento, partindo da prateleira fornecida.
+     *
+     * @param warehouseGrid matriz que representa o armazém.
+     * @param shelf {@link Block} bloco da prateleira de origem.
+     * @return {@link List<Block>} lista de blocos representando o caminho até a estação.
+     */
     public List<Block> goToUnloadingStation(Block[][] warehouseGrid, Block shelf) {
         pathToUnloadingStation = new ArrayList<>();
         pathToUnloadingStation.add(shelf);
@@ -88,7 +105,16 @@ public class Robot {
         return pathToUnloadingStation;
     }
 
-    // Deprecated
+    /**
+     * Retorna o caminho que volta à prateleira de origem.
+     *
+     * @param warehouseGrid matriz que representa o armazém.
+     * @param shelf {@link Block} bloco da prateleira de destino.
+     * @return caminho invertido até a prateleira
+     *
+     * @deprecated o retorno à prateleira agora é tratado de maneira diferente.
+     */
+    @Deprecated
     public List<Block> returnToShelf(Block[][] warehouseGrid, Block shelf) {
         List<Block> pathToReturnToShelf = new ArrayList<>(this.pathToUnloadingStation);
         Collections.reverse(pathToReturnToShelf);
