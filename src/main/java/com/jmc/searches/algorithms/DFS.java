@@ -2,6 +2,7 @@ package com.jmc.searches.algorithms;
 
 import com.jmc.entities.AlgorithmResult;
 import com.jmc.entities.Block;
+import com.jmc.entities.Robot;
 import com.jmc.enums.Face;
 import com.jmc.searches.Search;
 
@@ -41,8 +42,12 @@ public class DFS extends Search {
             Block current = stack.removeLast();
             explored.add(current);
 
-            if (current.getRobot() != null) {
-                return new AlgorithmResult(reconstructFinalPath(parentMap, current), explored, current.getRobot());
+            Robot robotFound = current.getRobot();
+            if (robotFound != null) {
+                // Adicionado para mover o robo imediatamente para prateleira
+                start.setRobot(robotFound);
+                current.setRobot(null);
+                return new AlgorithmResult(reconstructFinalPath(parentMap, current), explored, robotFound);
             }
 
             // Essas duas linhas foram feitas para garantir a lógica inicial de expansão/criação dos nós de Sul->Oeste->Leste->Norte
