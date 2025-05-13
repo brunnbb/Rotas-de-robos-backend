@@ -36,10 +36,6 @@ public class Grid {
         return null;
     }
 
-    public void clearGrid() {
-        this.grid = null;
-    }
-
     public void createGrid() {
         // north, west, south, east
         boolean[] openEast = {false, false, false, true};
