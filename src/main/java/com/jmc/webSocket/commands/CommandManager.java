@@ -22,7 +22,8 @@ public class CommandManager {
     public void commandHandler(String message, Session session) {
         System.out.println("fui chamado!");
         System.out.println(message);
-        String[] args = message.split(" ");
+        String formattedMessage = message.replace("\"", "");
+        String[] args = formattedMessage.split(" ");
         if (args.length == 0) return;
 
         if (commands.containsKey(args[0])) {
