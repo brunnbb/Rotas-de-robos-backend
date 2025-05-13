@@ -6,13 +6,13 @@ import java.util.List;
 
 public class AlgorithmResult {
     // Caminho final da prateleira ao robô mais próximo
-    private List<Block> finalPath;
+    private final List<Block> finalPath;
     // Lista completa de todos os nós explorados durante a busca
-    private List<Block> exploredPath;
+    private final List<Block> exploredPath;
     // Caminho do robo até prateleira
-    private List<Block> robotPath;
+    private final List<Block> robotPath;
     // Robo que foi achado
-    private Robot robot;
+    private final Robot robot;
 
     public AlgorithmResult(List<Block> finalPath, List<Block> exploredPath, Robot robot) {
         this.finalPath = finalPath != null ? finalPath : Collections.emptyList();
@@ -40,6 +40,10 @@ public class AlgorithmResult {
 
     public int getNumberOfExploredBlocks(){
         return exploredPath.size();
+    }
+
+    public Robot getRobot() {
+        return robot;
     }
 
     public List<String> getRobotCardinalDirections() {

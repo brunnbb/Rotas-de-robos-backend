@@ -93,7 +93,7 @@ public class Robot {
         return pathToUnloadingStation;
     }
 
-    public List<Block> ReturnToShelf(Block[][] warehouseGrid, Block shelf) {
+    public List<Block> returnToShelf(Block[][] warehouseGrid, Block shelf) {
         List<Block> pathToReturnToShelf = new ArrayList<>(this.pathToUnloadingStation);
         Collections.reverse(pathToReturnToShelf);
 

@@ -10,8 +10,14 @@ public class Block {
     private final int id; //ID
     private final int i;
     private final int j;
-    private final Map<Face, Boolean> directions; //FACE, BOOLEAN
+    private Map<Face, Boolean> directions; //FACE, BOOLEAN
     private Robot robot; //SE ESTIVER NULL NÃO TEM 1 ROBO AQUI
+
+    public Block(int id, int i, int j) {
+        this.id = id;
+        this.i = i;
+        this.j = j;
+    }
 
     private Block(int id, int i, int j, boolean[] connections) {
         this.id = id;

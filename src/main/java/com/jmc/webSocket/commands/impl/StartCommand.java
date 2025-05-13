@@ -2,19 +2,19 @@ package com.jmc.webSocket.commands.impl;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.jmc.entities.AlgorithmResult;
-import com.jmc.entities.Coordinate;
-import com.jmc.entities.Grid;
+import com.jmc.entities.*;
 import com.jmc.enums.Algorithms;
 import com.jmc.searches.Search;
 import com.jmc.searches.algorithms.AStar;
 import com.jmc.searches.algorithms.BFS;
 import com.jmc.searches.algorithms.DFS;
+import com.jmc.searches.algorithms.IterativeDeepening;
 import com.jmc.webSocket.commands.Command;
 import jakarta.websocket.Session;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 //start <algorithm> <queue>
@@ -33,44 +33,64 @@ public class StartCommand extends Command {
         Algorithms selectedAlgorithm = Algorithms.valueOf(algorithm);
 
         Grid grid = new Grid();
-
+        grid.createGrid();
         Search algorithmInstance;
         switch (selectedAlgorithm) {
             case A_STAR -> algorithmInstance = new AStar(grid.getGrid());
             case BFS -> algorithmInstance = new BFS(grid.getGrid());
             case DFS -> algorithmInstance = new DFS(grid.getGrid());
-            //case ITERATIVE_DEEPENING -> algorithmInstance = new IterativeDeepening(grid.getGrid());
+            case ITERATIVE_DEEPENING -> algorithmInstance = new IterativeDeepening(grid.getGrid());
             default -> {
                 return;
             }
         }
 
-        Map<Integer, AlgorithmResult> results = new LinkedHashMap<>();
+        Map<Integer, FilteredAlgorithmResult> resultMap = new LinkedHashMap<>();
 
         for (int i = 2; i < args.length; i++) {
             int shelf = Integer.parseInt(args[i]);
-            System.out.println(shelf);
 
             Coordinate coordinate = grid.getShelfCoordinate(shelf);
-            if (coordinate == null) continue;
-            System.out.println(coordinate.toString());
+            if (coordinate == null)
+                continue;
 
-            var result = algorithmInstance.search(coordinate.i(), coordinate.j());
-            System.out.println(result.toString());
+            AlgorithmResult result = algorithmInstance.search(coordinate.i(), coordinate.j());
+            //System.out.println(result);
 
-            results.put(shelf, result);
+            Block shelfBlock = grid.getShelfBlock(shelf);
+            //System.out.println((shelfBlock != null) ? shelfBlock.toString() : "");
+
+            List<Block> pathUnloading = new ArrayList<>();
+            result.getRobot().goToUnloadingStation(grid.getGrid(), shelfBlock).forEach(block -> {
+                pathUnloading.add(new Block(block.getId(), block.getI(), block.getJ()));
+            });
+
+            /*
+            List<Block> pathReturnShelf = new ArrayList<>();
+            result.getRobot().returnToShelf(grid.getGrid(), shelfBlock).forEach(block -> {
+                pathReturnShelf.add(new Block(block.getId(), block.getI(), block.getJ()));
+            });
+             */
+
+            FilteredAlgorithmResult filteredAlgorithmResult = new FilteredAlgorithmResult(
+                    shelf,
+                    result.getRobot().getId(),
+                    result.getExploredPath(),
+                    result.getRobotPath(),
+                    pathUnloading,
+                    pathUnloading.reversed()
+            );
+
+            resultMap.put(shelf, filteredAlgorithmResult);
         }
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = gson.toJson(resultMap);
 
-        String json = gson.toJson(results);
         try {
             session.getBasicRemote().sendText(json);
         } catch (Exception exception) {
             exception.printStackTrace(System.err);
         }
-
-
-        System.out.println(json);
     }
 }

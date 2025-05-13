@@ -1,11 +1,10 @@
 package com.jmc.entities;
 
 public class Grid {
-    private final Block[][] grid;
+    private Block[][] grid;
 
     public Grid() {
         this.grid = new Block[13][15];
-        this.createGrid();
     }
 
     public Coordinate getShelfCoordinate(int shelfID) {
@@ -14,7 +13,7 @@ public class Grid {
                 if (grid[i][j] != null) {
                     Block block = grid[i][j];
                     if (block.getId() == shelfID) {
-                        return new Coordinate(j, i);
+                        return new Coordinate(i, j);
                     }
                 }
             }
@@ -22,7 +21,26 @@ public class Grid {
         return null;
     }
 
-    private void createGrid() {
+    public Block getShelfBlock(int shelfID) {
+        for (int i = 0; i < 13; i++) {
+            for (int j = 0; j < 15; j++) {
+                if (grid[i][j] != null) {
+                    Block block = grid[i][j];
+                    if (block.getId() == shelfID) {
+                        return block;
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public void clearGrid() {
+        this.grid = null;
+    }
+
+    public void createGrid() {
         // north, west, south, east
         boolean[] openEast = {false, false, false, true};
         boolean[] openWestSouthEast = {false, true, true, true};
