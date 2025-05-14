@@ -1,7 +1,8 @@
 ﻿# Algoritmos de Busca - Rotas de Robôs
 
 ## Descrição do Trabalho
-> A descrição do trabalho encontra-se em: [Descrição](https://github.com/brunnbb/Rotas-de-robos-backend/blob/main/descri%C3%A7%C3%A3o-trabalho.pdf)
+> A descrição do trabalho encontra-se em: [Descrição](https://github.com/brunnbb/Rotas-de-robos-backend/blob/main/descri%C3%A7%C3%A3o-trabalho.pdf)</br>
+> O tema do projeto é o **Tema 1**: **Algoritmos de Busca - Rotas de Robôs**
 
 Para executar o **BackEnd** é necessário:
 - Java 22 (ou mais)
