@@ -19,12 +19,15 @@ public class Block {
         this.j = j;
     }
 
+    // O bloco base da grid do backend, todos os algoritmos de busca ocorrem em cima da manipulação dele
     private Block(int id, int i, int j, boolean[] connections) {
         this.id = id;
         this.i = i;
         this.j = j;
-        this.directions = new LinkedHashMap<>();
         this.robot = null;
+        /* O Map directions armazena as direções válidas para o bloco e garante que os nós da grid
+        serão expandidos no sentido: SOUTH -> WEST -> EAST -> NORTH */
+        this.directions = new LinkedHashMap<>();
         this.directions.put(Face.SOUTH, connections[2]);
         this.directions.put(Face.WEST, connections[1]);
         this.directions.put(Face.EAST, connections[3]);

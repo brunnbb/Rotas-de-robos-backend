@@ -1,6 +1,7 @@
 package com.jmc.entities;
 
 public class Grid {
+    // A grid que será utilizada para representar o armazém é um vetor 2D de blocos
     private Block[][] grid;
 
     public Grid() {
@@ -36,7 +37,9 @@ public class Grid {
         return null;
     }
 
+    // Atribui os blocos para a grid baseado no desenho dela e as restrições de movimento
     public void createGrid() {
+        // Ordem dos pontos cardeais desses vetores:
         // north, west, south, east
         boolean[] openEast = {false, false, false, true};
         boolean[] openWestSouthEast = {false, true, true, true};
@@ -49,6 +52,7 @@ public class Grid {
         boolean[] openAllDirections = {true, true, true, true};
         boolean[] closed = {false, false, false, false};
 
+        // Primeira linha da grid
         for (int j = 0; j < 15; j++) {
             if (j == 0) {
                 this.grid[0][j] = Block.createBlock(0, 0, j, openEast);
@@ -61,6 +65,7 @@ public class Grid {
             }
         }
 
+        // As linhas que contém as estantes
         for (int i = 1; i < 11; i++) {
             int shelfId = i;
             for (int j = 0; j < 15; j++) {
@@ -76,6 +81,7 @@ public class Grid {
             }
         }
 
+        // Linha do corredor da entrega
         for (int j = 0; j < 15; j++) {
             if (j == 0) {
                 this.grid[11][j] = Block.createBlock(0, 11, j, openSouthEast);
@@ -92,6 +98,7 @@ public class Grid {
             }
         }
 
+        // Linha dos robôs da grid
         for (int j = 0; j < 15; j++) {
             if (j < 5) {
                 this.grid[12][j] = Block.createBlock(0, 12, j, openNorth);

@@ -9,11 +9,11 @@ import com.jmc.searches.Search;
 import java.util.*;
 
 public class DFS extends Search {
-    // Fila que será manipulada pelos algoritmos
+    // Pilha que será manipulada pelos algoritmos
     private Deque<Block> stack;
     // Set para marcar os nós já visitados/vistos pelos algoritmos (serve para evitar loops)
     private Set<Block> visited;
-    // Lista que marca os blocos que já foram removidos da fila para análise
+    // Lista que marca os blocos que já foram removidos da pilha para análise
     private List<Block> explored;
     // Map que mapeia como um bloco foi alcançado (Serve para reconstruir o caminho final <Bloco, PaiDoBloco>)
     private Map<Block, Block> parentMap;

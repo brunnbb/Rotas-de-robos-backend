@@ -27,6 +27,7 @@ public class AStar extends Search {
         this.goals = new ArrayList<>();
     }
 
+    // Nessa classe, além de inicializar as estruturas, esse metodo calcula e recalcula a heurísta para a grid
     @Override
     public void startDataStructures() {
         this.visited = new HashSet<>();
@@ -95,7 +96,7 @@ public class AStar extends Search {
         return new AlgorithmResult(null, explored, null);
     }
 
-    // Heurística de Manhattan até o robô mais próximo
+    // Distância de Manhattan até o robô mais próximo
     private int heuristic(Block block) {
         return goals.stream()
                 .mapToInt(goal -> Math.abs(block.getI() - goal.getI()) + Math.abs(block.getJ() - goal.getJ()))

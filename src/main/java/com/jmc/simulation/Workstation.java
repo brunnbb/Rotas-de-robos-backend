@@ -9,6 +9,7 @@ import com.jmc.searches.algorithms.BFS;
 import com.jmc.searches.algorithms.DFS;
 import com.jmc.searches.algorithms.IterativeDeepening;
 
+// Essa classe foi criada para analisar e testar a lógica dos algoritmos de busca
 public class Workstation {
     public static void main(String[] args) {
         Grid grid = new Grid();
@@ -20,28 +21,24 @@ public class Workstation {
         AStar aStar = new AStar(warehouseGrid);
         IterativeDeepening iddfs = new IterativeDeepening(warehouseGrid);
 
-        AlgorithmResult result1 = iddfs.search(7, 3);
+        AlgorithmResult result1 = bfs.search(7, 3);
         System.out.println(result1);
-//        Block shelf1 = result1.getFinalPath().getFirst();
-//        Robot r1 = result1.getClosestRobot();
-//        r1.goToShelf(warehouseGrid, shelf1);
 
         System.out.println("\n");
 
-//        AlgorithmResult result2 = dfs.search(9, 6);
-//        System.out.println(result2);
-//
-//        System.out.println("\n");
+        AlgorithmResult result2 = dfs.search(9, 6);
+        System.out.println(result2);
+
+        System.out.println("\n");
 
         AlgorithmResult result3 = iddfs.search(9, 3);
         System.out.println(result3);
 
-        System.out.println("\n");
-
-//        AlgorithmResult result4 = dfs.search(9, 11);
-//        System.out.println(result4);
-//
-//        System.out.println("\n");
-
+//        for (int x = 0; x < 13; x++) {
+//            for (int y = 0; y < 15; y++) {
+//                System.out.print(warehouseGrid[x][y] + "\t");
+//            }
+//            System.out.println(" ");
+//        }
     }
 }

@@ -10,6 +10,8 @@ import java.util.Map;
 /**
  * Representa o Robô responsável por carregar pacotes, navegar até as prateleiras e estações de descarregamento.
  * Cada robô possui um identificador.
+ * Os atributos carrying, packageId e postGoal não são utilizados na versão atual do projeto.
+ * Eles serão necessários se uma futura implementação multiagente ocorrer
  */
 public class Robot {
     private int id;
@@ -110,7 +112,7 @@ public class Robot {
      *
      * @param warehouseGrid matriz que representa o armazém.
      * @param shelf {@link Block} bloco da prateleira de destino.
-     * @return caminho invertido até a prateleira
+     * @return {@link List<Block>} caminho invertido até a prateleira
      *
      * @deprecated o retorno à prateleira agora é tratado de maneira diferente.
      */

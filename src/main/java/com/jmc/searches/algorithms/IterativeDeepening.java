@@ -9,9 +9,13 @@ import com.jmc.searches.Search;
 import java.util.*;
 
 public class IterativeDeepening extends Search {
-    private List<Block> explored;
+    // Set para marcar os nós já visitados/vistos pelos algoritmos (serve para evitar loops)
     private Set<Block> visited;
+    // Lista que marca os blocos que já foram removidos da fila de execução para análise
+    private List<Block> explored;
+    // Map que mapeia como um bloco foi alcançado (Serve para reconstruir o caminho final <Bloco, PaiDoBloco>)
     private Map<Block, Block> parentMap;
+    // Bloco que foi achado pela busca em profundidade limitada
     private Block foundBlock;
     private boolean cutoffOccurred;
 
@@ -51,6 +55,7 @@ public class IterativeDeepening extends Search {
         }
     }
 
+    // Busca em profundidade limitada
     private void depthLimitedSearch(Block current, int limit) {
         visited.add(current);
         explored.add(current);

@@ -17,10 +17,10 @@ public abstract class Search {
     // Metodo abstrado para busca
     public abstract AlgorithmResult search(int shelfI, int shelfJ);
 
-    // Metodo abstrato para inicilizar as estruturas de dado
+    // Metodo abstrato para inicilizar e limpar as estruturas de dados utilizadas em cada algoritmo
     public abstract void startDataStructures();
 
-    // Pega o bloco vizinho baseado na coordenado cardial dada
+    // Pega o bloco vizinho baseado na coordenada cardial dada
     protected Block getNeighbor(Block current, Face face) {
         int i = current.getI();
         int j = current.getJ();

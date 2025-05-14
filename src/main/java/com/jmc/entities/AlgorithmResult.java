@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+// Essa classe serve para agrupar os resultados obtidos do pelos algoritmos
 public class AlgorithmResult {
-    // Caminho final da prateleira ao robô mais próximo
+    // Caminho final da prateleira ao robô encontrado pelo algoritmo de busca
     private final List<Block> finalPath;
     // Lista completa de todos os nós explorados durante a busca
     private final List<Block> exploredPath;
-    // Caminho do robo até prateleira
+    // Caminho do robô até prateleira
     private final List<Block> robotPath;
-    // Robo que foi achado
+    // Robô que foi achado
     private final Robot robot;
 
     public AlgorithmResult(List<Block> finalPath, List<Block> exploredPath, Robot robot) {
@@ -20,10 +21,6 @@ public class AlgorithmResult {
         this.robotPath = new ArrayList<>(this.finalPath);
         Collections.reverse(this.robotPath);
         this.robot = robot;
-    }
-
-    public Robot getClosestRobot() {
-        return robot;
     }
 
     public List<Block> getFinalPath() {
@@ -38,6 +35,7 @@ public class AlgorithmResult {
         return robotPath;
     }
 
+    // Número de blocos explorados pelo algoritmo
     public int getNumberOfExploredBlocks(){
         return exploredPath.size();
     }
@@ -46,6 +44,7 @@ public class AlgorithmResult {
         return robot;
     }
 
+    // Lista das coordenadas cardeais {NORTH, SOUTH, WEST, EAST} que o robô deve realizar para chegar até a prateleira
     public List<String> getRobotCardinalDirections() {
         List<String> cardinalDirections = new ArrayList<>();
 
