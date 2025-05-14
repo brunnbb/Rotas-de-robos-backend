@@ -1,5 +1,8 @@
 ﻿# Algoritmos de Busca - Rotas de Robôs
 
+## Descrição do Trabalho
+> A descrição do trabalho encontra-se em: [Descrição](https://github.com/brunnbb/Rotas-de-robos-backend/blob/main/descri%C3%A7%C3%A3o-trabalho.pdf)
+
 Para executar o **BackEnd** é necessário:
 - Java 22 (ou mais)
 - Ambiente com Maven (Dentro de uma IDE com suporte ou instalado e configurado via PATH)
